@@ -9,15 +9,15 @@ namespace NSS_Ping_Pong_Backend.Models
     public class Player
     {
         [Key]
-        int PlayerId { get; set; }
-        int FirebaseId { get; set; }
+        // Will be the same as the Firebase uid that comes back after login
+        public int PlayerId { get; set; }
 
-        string FirstName { get; set; }
-        string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        DateTime Birthday { get; set; }
-        bool LeftHanded { get; set; }
+        public bool LeftHanded { get; set; }
+        public string Cohort { get; set; }
 
-        string Cohort { get; set; }
+        public Stats Stats { get; set; }
     }
 }
