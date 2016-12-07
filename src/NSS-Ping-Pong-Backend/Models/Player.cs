@@ -19,5 +19,10 @@ namespace NSS_Ping_Pong_Backend.Models
         public string Cohort { get; set; }
 
         public Stats Stats { get; set; }
+
+        public Player()
+        {
+            Stats = new Stats();
+        }
     }
 }

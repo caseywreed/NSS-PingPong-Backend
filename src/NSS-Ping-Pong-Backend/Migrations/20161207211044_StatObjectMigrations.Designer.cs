@@ -8,9 +8,10 @@ using NSS_Ping_Pong_Backend.Data;
 namespace NSSPingPongBackend.Migrations
 {
     [DbContext(typeof(NSSPingPongContext))]
-    partial class NSSPingPongContextModelSnapshot : ModelSnapshot
+    [Migration("20161207211044_StatObjectMigrations")]
+    partial class StatObjectMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -69,11 +70,7 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<bool>("LeftHanded");
 
-                    b.Property<int?>("StatsId");
-
                     b.HasKey("PlayerId");
-
-                    b.HasIndex("StatsId");
 
                     b.ToTable("Player");
                 });
@@ -89,6 +86,8 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<int>("Losses");
 
+                    b.Property<int>("PlayerId");
+
                     b.Property<int?>("Rating");
 
                     b.Property<int?>("WinPercentage");
@@ -96,6 +95,9 @@ namespace NSSPingPongBackend.Migrations
                     b.Property<int>("Wins");
 
                     b.HasKey("StatsId");
+
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("Stats");
                 });
@@ -111,11 +113,12 @@ namespace NSSPingPongBackend.Migrations
                         .HasForeignKey("PlayerId");
                 });
 
-            modelBuilder.Entity("NSS_Ping_Pong_Backend.Models.Player", b =>
+            modelBuilder.Entity("NSS_Ping_Pong_Backend.Models.Stats", b =>
                 {
-                    b.HasOne("NSS_Ping_Pong_Backend.Models.Stats", "Stats")
-                        .WithMany()
-                        .HasForeignKey("StatsId");
+                    b.HasOne("NSS_Ping_Pong_Backend.Models.Player")
+                        .WithOne("Stats")
+                        .HasForeignKey("NSS_Ping_Pong_Backend.Models.Stats", "PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

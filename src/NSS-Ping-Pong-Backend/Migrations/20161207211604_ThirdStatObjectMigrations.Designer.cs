@@ -8,9 +8,10 @@ using NSS_Ping_Pong_Backend.Data;
 namespace NSSPingPongBackend.Migrations
 {
     [DbContext(typeof(NSSPingPongContext))]
-    partial class NSSPingPongContextModelSnapshot : ModelSnapshot
+    [Migration("20161207211604_ThirdStatObjectMigrations")]
+    partial class ThirdStatObjectMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

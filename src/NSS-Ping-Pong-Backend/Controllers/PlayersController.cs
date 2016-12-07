@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSS_Ping_Pong_Backend.Data;
 using NSS_Ping_Pong_Backend.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace NSS_Ping_Pong_Backend.Controllers
 {
@@ -62,8 +64,31 @@ namespace NSS_Ping_Pong_Backend.Controllers
 
         // POST api/players
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Player player)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            context.Player.Add(player);
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (PlayerExists(player.PlayerId))
+                {
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(player);
         }
 
         // PUT api/players/5
@@ -76,6 +101,11 @@ namespace NSS_Ping_Pong_Backend.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        private bool PlayerExists(int id)
+        {
+            return context.Player.Count(e => e.PlayerId == id) > 0;
         }
     }
 }
