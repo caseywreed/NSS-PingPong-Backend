@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NSS_Ping_Pong_Backend.Data;
 
 namespace NSS_Ping_Pong_Backend
 {
@@ -37,6 +39,9 @@ namespace NSS_Ping_Pong_Backend
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            services.AddDbContext<NSSPingPongContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 
@@ -51,6 +56,7 @@ namespace NSS_Ping_Pong_Backend
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseMvc();
+            DbInitializer.Initialize(app.ApplicationServices);
         }
     }
 }

@@ -3,24 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NSS_Ping_Pong_Backend.Data;
+using NSS_Ping_Pong_Backend.Models;
 
 namespace NSS_Ping_Pong_Backend.Controllers
 {
     [Route("api/[controller]")]
     public class PlayersController : Controller
     {
+
+        private NSSPingPongContext context;
+
+        public PlayersController(NSSPingPongContext ctx)
+        {
+            context = ctx;
+        }
+
+
         // GET api/players
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            IQueryable<object> players = from player in context.Player select player;
+
+            if (players == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(players);
         }
 
         // GET api/players/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                Player player = context.Player.Single(m => m.PlayerId == id);
+
+                if (player == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(player);
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/players
