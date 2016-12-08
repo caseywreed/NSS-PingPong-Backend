@@ -8,9 +8,10 @@ using NSS_Ping_Pong_Backend.Data;
 namespace NSSPingPongBackend.Migrations
 {
     [DbContext(typeof(NSSPingPongContext))]
-    partial class NSSPingPongContextModelSnapshot : ModelSnapshot
+    [Migration("20161207211604_ThirdStatObjectMigrations")]
+    partial class ThirdStatObjectMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -23,9 +24,9 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<DateTime>("DatePlayed");
 
-                    b.Property<double>("TeamOneScore");
+                    b.Property<int>("TeamOneScore");
 
-                    b.Property<double>("TeamTwoScore");
+                    b.Property<int>("TeamTwoScore");
 
                     b.HasKey("GameId");
 
@@ -63,8 +64,6 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<string>("Cohort");
 
-                    b.Property<int>("FirebaseId");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
@@ -85,7 +84,7 @@ namespace NSSPingPongBackend.Migrations
                     b.Property<int>("StatsId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double?>("AvgPointDiff");
+                    b.Property<int?>("AvgPointDiff");
 
                     b.Property<int>("Games");
 
@@ -93,7 +92,7 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<int?>("Rating");
 
-                    b.Property<double?>("WinPercentage");
+                    b.Property<int?>("WinPercentage");
 
                     b.Property<int>("Wins");
 

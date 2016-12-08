@@ -13,7 +13,7 @@ namespace NSS_Ping_Pong_Backend.Models
 
         public DateTime DatePlayed { get; set; }
         public ICollection<GamePlayer> GamePlayers { get; set; }
-        public int TeamOneScore { get; set; }
-        public int TeamTwoScore { get; set; }
+        public double TeamOneScore { get; set; }
+        public double TeamTwoScore { get; set; }
     }
 }

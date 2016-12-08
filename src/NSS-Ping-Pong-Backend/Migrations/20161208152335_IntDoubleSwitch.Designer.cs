@@ -8,9 +8,10 @@ using NSS_Ping_Pong_Backend.Data;
 namespace NSSPingPongBackend.Migrations
 {
     [DbContext(typeof(NSSPingPongContext))]
-    partial class NSSPingPongContextModelSnapshot : ModelSnapshot
+    [Migration("20161208152335_IntDoubleSwitch")]
+    partial class IntDoubleSwitch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -23,9 +24,9 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<DateTime>("DatePlayed");
 
-                    b.Property<double>("TeamOneScore");
+                    b.Property<int>("TeamOneScore");
 
-                    b.Property<double>("TeamTwoScore");
+                    b.Property<int>("TeamTwoScore");
 
                     b.HasKey("GameId");
 
