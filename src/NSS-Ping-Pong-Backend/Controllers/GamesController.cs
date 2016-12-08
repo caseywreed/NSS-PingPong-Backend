@@ -58,7 +58,7 @@ namespace NSS_Ping_Pong_Backend.Controllers
             }
             catch (System.InvalidOperationException ex)
             {
-                return NotFound();
+                return NotFound(ex);
             }
         }
 
