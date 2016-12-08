@@ -93,14 +93,69 @@ namespace NSS_Ping_Pong_Backend.Controllers
 
         // PUT api/players/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (player.PlayerId != id)
+            {
+                return BadRequest(player);
+            }
+            try
+            {
+                context.Player.Update(player);
+                context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
+            }
+            return Ok(player);
+        }
+
+        // PATCH api/players/5
+        [HttpPatch("{id}")]
+        public void Patch(int id, [FromBody]string value)
         {
         }
 
         // DELETE api/players/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Player player = context.Player.Single(m => m.PlayerId == id);
+
+            if (player == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                context.Player.Remove(player);
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    if (PlayerExists(player.PlayerId))
+                    {
+                        return new StatusCodeResult(StatusCodes.Status403Forbidden);
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return Ok(player);
         }
 
         private bool PlayerExists(int id)
