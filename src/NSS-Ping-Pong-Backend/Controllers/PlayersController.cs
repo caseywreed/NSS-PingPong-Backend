@@ -117,6 +117,7 @@ namespace NSS_Ping_Pong_Backend.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
+            player.Stats.CalculateStats();
             return Ok(player);
         }
 
