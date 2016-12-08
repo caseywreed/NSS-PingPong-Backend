@@ -33,6 +33,11 @@ namespace NSS_Ping_Pong_Backend.Controllers
                 return NotFound();
             }
 
+            foreach (Player p in players)
+            {
+                p.Stats.CalculateStats();
+            }
+
             return Ok(players);
         }
 
@@ -53,7 +58,7 @@ namespace NSS_Ping_Pong_Backend.Controllers
                 {
                     return NotFound();
                 }
-
+                player.Stats.CalculateStats();
                 return Ok(player);
             }
             catch (System.InvalidOperationException ex)
@@ -119,6 +124,7 @@ namespace NSS_Ping_Pong_Backend.Controllers
         [HttpPatch("{id}")]
         public void Patch(int id, [FromBody]string value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/players/5
