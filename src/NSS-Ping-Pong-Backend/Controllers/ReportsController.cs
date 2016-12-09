@@ -32,15 +32,18 @@ namespace NSS_Ping_Pong_Backend.Controllers
                 return BadRequest(ModelState);
             }
 
+            //Could this be refactoed to accept playerId rather than the full Player object?
+
             Game game = new Game();
 
             //Two IF conditional paths here?
             //One for if Two Players are present on the model
             //One for if Four Players are present on the model
+
             var gamePlayers = new GamePlayer[]
             {
-                new GamePlayer(model.playerOne, 1, game.GameId),
-                new GamePlayer(model.playerTwo, 2, game.GameId)
+                new GamePlayer(model.playerOneId, 1, game.GameId),
+                new GamePlayer(model.playerTwoId, 2, game.GameId)
             };
 
             foreach (GamePlayer g in gamePlayers)

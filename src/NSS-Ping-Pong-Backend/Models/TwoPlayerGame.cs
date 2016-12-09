@@ -7,8 +7,8 @@ namespace NSS_Ping_Pong_Backend.Models
 {
     public class TwoPlayerGame
     {
-        public Player playerOne { get; set; }
-        public Player playerTwo { get; set; }
+        public int playerOneId { get; set; }
+        public int playerTwoId { get; set; }
         public double teamOneScore { get; set; }
         public double teamTwoScore { get; set; }
     }

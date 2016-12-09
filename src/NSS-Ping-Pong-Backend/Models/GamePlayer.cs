@@ -18,10 +18,10 @@ namespace NSS_Ping_Pong_Backend.Models
         public bool? Won { get; set; }
         public double? PointDiff { get; set; }
 
-        public GamePlayer(Player player, int TeamInt, int gameid)
+        public GamePlayer(int playerId, int TeamInt, int gameId)
         {
-            PlayerId = player.PlayerId;
-            GameId = gameid;
+            PlayerId = playerId;
+            GameId = gameId;
             Team = TeamInt;
         }
     }
