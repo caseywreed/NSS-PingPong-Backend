@@ -89,16 +89,17 @@ namespace NSS_Ping_Pong_Backend.Data
                 }
                 context.SaveChanges();
 
-                //   GamePlayer
-                GamePlayer gp = null;
-                var rnd = new Random();
-                foreach (Player p in players)
-                {
-                    int num = rnd.Next(1, 3);
-                    gp = new GamePlayer(p, num);
-                    context.GamePlayer.Add(gp);
-                }
-                context.SaveChanges();
+                // GamePlayer Seeding
+                // Uncomment to seed each player with a randomly generated GamePlayer
+                //GamePlayer gp = null;
+                //var rnd = new Random();
+                //foreach (Player p in players)
+                //{
+                //    int num = rnd.Next(1, 3);
+                //    gp = new GamePlayer(p, num);
+                //    context.GamePlayer.Add(gp);
+                //}
+                //context.SaveChanges();
             }
         }
     }

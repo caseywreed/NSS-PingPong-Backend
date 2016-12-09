@@ -8,9 +8,10 @@ using NSS_Ping_Pong_Backend.Data;
 namespace NSSPingPongBackend.Migrations
 {
     [DbContext(typeof(NSSPingPongContext))]
-    partial class NSSPingPongContextModelSnapshot : ModelSnapshot
+    [Migration("20161208233835_IdGenerationTag")]
+    partial class IdGenerationTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -37,7 +38,7 @@ namespace NSSPingPongBackend.Migrations
                     b.Property<int>("GamePlayerId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("GameId");
+                    b.Property<int?>("GameId");
 
                     b.Property<int>("PlayerId");
 
@@ -50,6 +51,8 @@ namespace NSSPingPongBackend.Migrations
                     b.HasKey("GamePlayerId");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("GamePlayer");
                 });
@@ -104,7 +107,11 @@ namespace NSSPingPongBackend.Migrations
                 {
                     b.HasOne("NSS_Ping_Pong_Backend.Models.Game")
                         .WithMany("GamePlayers")
-                        .HasForeignKey("GameId")
+                        .HasForeignKey("GameId");
+
+                    b.HasOne("NSS_Ping_Pong_Backend.Models.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
