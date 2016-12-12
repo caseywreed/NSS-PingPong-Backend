@@ -20,74 +20,74 @@ namespace NSS_Ping_Pong_Backend.Data
                     return;   // DB has been seeded
                 }
                 //   Player
-                var players = new Player[]
-                {
-                  new Player {
-                      FirstName = "Casey",
-                      LastName = "Reed",
-                      LeftHanded = false,
-                      Cohort = "15"
-                  },
-                  new Player {
-                      FirstName = "Fletcher",
-                      LastName = "Watson",
-                      LeftHanded = false,
-                      Cohort = "15"
-                  },
-                  new Player {
-                      FirstName = "Delaine",
-                      LastName = "Wendling",
-                      LeftHanded = true,
-                      Cohort = "14"
-                  },
-                  new Player {
-                      FirstName = "Matt",
-                      LastName = "Hamil",
-                      LeftHanded = false,
-                      Cohort = "13"
-                  },
-                  new Player {
-                      FirstName = "Grant",
-                      LastName = "Regnier",
-                      LeftHanded = true,
-                      Cohort = "15"
-                  },
-                  new Player {
-                      FirstName = "Edgar",
-                      LastName = "Barajas",
-                      LeftHanded = false,
-                      Cohort = "16"
-                  },
-                  new Player {
-                      FirstName = "Megan",
-                      LastName = "Ducharme",
-                      LeftHanded = false,
-                      Cohort = "13"
-                  },
-                  new Player {
-                      FirstName = "Zack",
-                      LastName = "Repass",
-                      LeftHanded = true,
-                      Cohort = "15"
-                  },
-                  new Player {
-                      FirstName = "Joe",
-                      LastName = "Shepherd",
-                      LeftHanded = false,
-                      Cohort = "0"
-                  },
-                  new Player {
-                      FirstName = "Steve",
-                      LastName = "Brownlee",
-                      LeftHanded = true,
-                      Cohort = "0"
-                  }
-                };
-                foreach (Player p in players)
-                {
-                    context.Player.Add(p);
-                }
-                context.SaveChanges();
+                //var players = new Player[]
+                //{
+                //  new Player {
+                //      FirstName = "Casey",
+                //      LastName = "Reed",
+                //      LeftHanded = false,
+                //      Cohort = "15"
+                //  },
+                //  new Player {
+                //      FirstName = "Fletcher",
+                //      LastName = "Watson",
+                //      LeftHanded = false,
+                //      Cohort = "15"
+                //  },
+                //  new Player {
+                //      FirstName = "Delaine",
+                //      LastName = "Wendling",
+                //      LeftHanded = true,
+                //      Cohort = "14"
+                //  },
+                //  new Player {
+                //      FirstName = "Matt",
+                //      LastName = "Hamil",
+                //      LeftHanded = false,
+                //      Cohort = "13"
+                //  },
+                //  new Player {
+                //      FirstName = "Grant",
+                //      LastName = "Regnier",
+                //      LeftHanded = true,
+                //      Cohort = "15"
+                //  },
+                //  new Player {
+                //      FirstName = "Edgar",
+                //      LastName = "Barajas",
+                //      LeftHanded = false,
+                //      Cohort = "16"
+                //  },
+                //  new Player {
+                //      FirstName = "Megan",
+                //      LastName = "Ducharme",
+                //      LeftHanded = false,
+                //      Cohort = "13"
+                //  },
+                //  new Player {
+                //      FirstName = "Zack",
+                //      LastName = "Repass",
+                //      LeftHanded = true,
+                //      Cohort = "15"
+                //  },
+                //  new Player {
+                //      FirstName = "Joe",
+                //      LastName = "Shepherd",
+                //      LeftHanded = false,
+                //      Cohort = "0"
+                //  },
+                //  new Player {
+                //      FirstName = "Steve",
+                //      LastName = "Brownlee",
+                //      LeftHanded = true,
+                //      Cohort = "0"
+                //  }
+                //};
+                //foreach (Player p in players)
+                //{
+                //    context.Player.Add(p);
+                //}
+                //context.SaveChanges();
 
                 // GamePlayer Seeding
                 // Uncomment to seed each player with a randomly generated GamePlayer

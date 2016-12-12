@@ -1,5 +1,9 @@
-﻿using System;
+﻿using NSS_Ping_Pong_Backend.Data;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace NSS_Ping_Pong_Backend.Models
 {
@@ -7,6 +11,7 @@ namespace NSS_Ping_Pong_Backend.Models
     {
         [Key]
         public int StatsId { get; set; }
+        public int PlayerId { get; set; }
 
         //Core Stats
         public double Wins { get; set; }
@@ -18,16 +23,29 @@ namespace NSS_Ping_Pong_Backend.Models
         public double? AvgPointDiff { get; set; }
         public double? Rating { get; set; }
 
-        public void CalculateStats()
+        public void CalculateStats(NSSPingPongContext context)
         {
             WinPercentage = (Wins / Games);
+
+            var gps = context.GamePlayer.Where(g => g.PlayerId == PlayerId);
+
+            Double pointDiffCounter = 0;
+            Double numOfGames = gps.Count();
+            foreach (GamePlayer gp in gps)
+            {
+                pointDiffCounter = pointDiffCounter + (double)gp.PointDiff;
+            }
+
+            AvgPointDiff = (pointDiffCounter / numOfGames);
+
         }
 
         public Stats()
         {
-            Wins = 10;
-            Losses = 5;
-            Games = 15;
+            var rnd = new Random();
+            Wins = rnd.Next(1, 101);
+            Losses = rnd.Next(1, 101);
+            Games = Wins + Losses;
         }
     }
 }

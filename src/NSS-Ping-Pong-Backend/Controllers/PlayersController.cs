@@ -35,7 +35,9 @@ namespace NSS_Ping_Pong_Backend.Controllers
 
             foreach (Player p in players)
             {
-                p.Stats.CalculateStats();
+                Stats stats = context.Stats.Single(m => m.PlayerId == p.PlayerId);
+
+                stats.CalculateStats(context);
             }
 
             return Ok(players);
@@ -58,7 +60,10 @@ namespace NSS_Ping_Pong_Backend.Controllers
                 {
                     return NotFound();
                 }
-                player.Stats.CalculateStats();
+
+                Stats stats = context.Stats.Single(s => s.PlayerId == id);
+
+                stats.CalculateStats(context);
                 return Ok(player);
             }
             catch (System.InvalidOperationException ex)
@@ -93,6 +98,26 @@ namespace NSS_Ping_Pong_Backend.Controllers
                 }
             }
 
+            var stats = new Stats();
+            stats.PlayerId = player.PlayerId;
+            context.Stats.Add(stats);
+
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (StatsExists(stats.StatsId))
+                {
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return Ok(player);
         }
 
@@ -117,7 +142,7 @@ namespace NSS_Ping_Pong_Backend.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status409Conflict);
             }
-            player.Stats.CalculateStats();
+            player.Stats.CalculateStats(context);
             return Ok(player);
         }
 
@@ -168,6 +193,10 @@ namespace NSS_Ping_Pong_Backend.Controllers
         private bool PlayerExists(int id)
         {
             return context.Player.Count(e => e.PlayerId == id) > 0;
+        }
+        private bool StatsExists(int id)
+        {
+            return context.Stats.Count(e => e.StatsId == id) > 0;
         }
     }
 }

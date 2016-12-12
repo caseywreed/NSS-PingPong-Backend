@@ -8,8 +8,8 @@ using NSS_Ping_Pong_Backend.Data;
 namespace NSSPingPongBackend.Migrations
 {
     [DbContext(typeof(NSSPingPongContext))]
-    [Migration("20161207211044_StatObjectMigrations")]
-    partial class StatObjectMigrations
+    [Migration("20161212170805_MoreDoubles")]
+    partial class MoreDoubles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,9 +24,9 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<DateTime>("DatePlayed");
 
-                    b.Property<int>("TeamOneScore");
+                    b.Property<double>("TeamOneScore");
 
-                    b.Property<int>("TeamTwoScore");
+                    b.Property<double>("TeamTwoScore");
 
                     b.HasKey("GameId");
 
@@ -38,11 +38,11 @@ namespace NSSPingPongBackend.Migrations
                     b.Property<int>("GamePlayerId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("GameId");
+                    b.Property<int>("GameId");
 
-                    b.Property<int?>("PlayerId");
+                    b.Property<int>("PlayerId");
 
-                    b.Property<int?>("PointDiff");
+                    b.Property<double?>("PointDiff");
 
                     b.Property<int>("Team");
 
@@ -51,8 +51,6 @@ namespace NSSPingPongBackend.Migrations
                     b.HasKey("GamePlayerId");
 
                     b.HasIndex("GameId");
-
-                    b.HasIndex("PlayerId");
 
                     b.ToTable("GamePlayer");
                 });
@@ -63,6 +61,8 @@ namespace NSSPingPongBackend.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Cohort");
+
+                    b.Property<int>("FirebaseId");
 
                     b.Property<string>("FirstName");
 
@@ -80,19 +80,19 @@ namespace NSSPingPongBackend.Migrations
                     b.Property<int>("StatsId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AvgPointDiff");
+                    b.Property<double?>("AvgPointDiff");
 
-                    b.Property<int>("Games");
+                    b.Property<double>("Games");
 
-                    b.Property<int>("Losses");
+                    b.Property<double>("Losses");
 
                     b.Property<int>("PlayerId");
 
-                    b.Property<int?>("Rating");
+                    b.Property<double?>("Rating");
 
-                    b.Property<int?>("WinPercentage");
+                    b.Property<double?>("WinPercentage");
 
-                    b.Property<int>("Wins");
+                    b.Property<double>("Wins");
 
                     b.HasKey("StatsId");
 
@@ -104,13 +104,10 @@ namespace NSSPingPongBackend.Migrations
 
             modelBuilder.Entity("NSS_Ping_Pong_Backend.Models.GamePlayer", b =>
                 {
-                    b.HasOne("NSS_Ping_Pong_Backend.Models.Game", "Game")
+                    b.HasOne("NSS_Ping_Pong_Backend.Models.Game")
                         .WithMany("GamePlayers")
-                        .HasForeignKey("GameId");
-
-                    b.HasOne("NSS_Ping_Pong_Backend.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId");
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NSS_Ping_Pong_Backend.Models.Stats", b =>

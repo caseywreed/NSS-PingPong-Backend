@@ -41,7 +41,7 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<int>("PlayerId");
 
-                    b.Property<int?>("PointDiff");
+                    b.Property<double?>("PointDiff");
 
                     b.Property<int>("Team");
 
@@ -69,11 +69,7 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<bool>("LeftHanded");
 
-                    b.Property<int?>("StatsId");
-
                     b.HasKey("PlayerId");
-
-                    b.HasIndex("StatsId");
 
                     b.ToTable("Player");
                 });
@@ -89,6 +85,8 @@ namespace NSSPingPongBackend.Migrations
 
                     b.Property<double>("Losses");
 
+                    b.Property<int>("PlayerId");
+
                     b.Property<double?>("Rating");
 
                     b.Property<double?>("WinPercentage");
@@ -96,6 +94,9 @@ namespace NSSPingPongBackend.Migrations
                     b.Property<double>("Wins");
 
                     b.HasKey("StatsId");
+
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("Stats");
                 });
@@ -108,11 +109,12 @@ namespace NSSPingPongBackend.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("NSS_Ping_Pong_Backend.Models.Player", b =>
+            modelBuilder.Entity("NSS_Ping_Pong_Backend.Models.Stats", b =>
                 {
-                    b.HasOne("NSS_Ping_Pong_Backend.Models.Stats", "Stats")
-                        .WithMany()
-                        .HasForeignKey("StatsId");
+                    b.HasOne("NSS_Ping_Pong_Backend.Models.Player")
+                        .WithOne("Stats")
+                        .HasForeignKey("NSS_Ping_Pong_Backend.Models.Stats", "PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
